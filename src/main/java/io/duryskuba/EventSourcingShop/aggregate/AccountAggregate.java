@@ -22,6 +22,9 @@ public class AccountAggregate {
     private String email;
 
     private LocalDateTime createdAt;
+
+
+
 }
 
 
