@@ -1,7 +1,9 @@
 package io.duryskuba.EventSourcingShop.aggregate;
 
 import io.duryskuba.EventSourcingShop.command.account.AccountCreationCommand;
+import io.duryskuba.EventSourcingShop.command.account.ChangePasswordCommand;
 import io.duryskuba.EventSourcingShop.event.account.AccountCreationEvent;
+import io.duryskuba.EventSourcingShop.event.account.PasswordChangedEvent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,6 +40,11 @@ public class AccountAggregate {
                 cmd.getId(), cmd.getUsername(), cmd.getPassword(), cmd.getEmail()) );
     }
 
+    @CommandHandler
+    public void handle(ChangePasswordCommand cmd) {
+        apply(new PasswordChangedEvent(cmd.getId(), cmd.getPassword()));
+    }
+
 
     @EventSourcingHandler
     protected void on(AccountCreationEvent event) {
@@ -46,6 +53,11 @@ public class AccountAggregate {
         this.password = event.getPassword();
         this.email = event.getEmail();
         this.createdAt = LocalDateTime.now();
+    }
+
+    @EventSourcingHandler
+    protected void on(PasswordChangedEvent event) {
+        this.password = event.getPassword();
     }
 }
 

@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class BaseEvent<T> {
-    public T id;
+    private T id;
 }

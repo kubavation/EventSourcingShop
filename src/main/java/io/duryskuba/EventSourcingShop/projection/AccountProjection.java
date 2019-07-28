@@ -1,6 +1,7 @@
 package io.duryskuba.EventSourcingShop.projection;
 
 import io.duryskuba.EventSourcingShop.event.account.AccountCreationEvent;
+import io.duryskuba.EventSourcingShop.event.account.PasswordChangedEvent;
 import io.duryskuba.EventSourcingShop.model.Account;
 import io.duryskuba.EventSourcingShop.repository.AccountRepository;
 import org.axonframework.eventhandling.EventHandler;
@@ -27,6 +28,17 @@ public class AccountProjection {
                 new Account(event.getId(), event.getUsername(), event.getPassword(), event.getEmail(), LocalDateTime.now())
         );
     }
+
+    @EventHandler
+    public void on(PasswordChangedEvent event) {
+        System.out.println(event);
+        accountRepository.findById(event.getId())
+                .map(a -> {
+                    a.setPassword(event.getPassword());
+                    return a;
+                });
+    }
+
 
 
 }
