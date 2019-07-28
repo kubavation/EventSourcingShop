@@ -1,4 +1,8 @@
 package io.duryskuba.EventSourcingShop.repository;
 
-public class AccountRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AccountRepository extends JpaRepository<> {
 }
