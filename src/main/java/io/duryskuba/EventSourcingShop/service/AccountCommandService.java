@@ -1,6 +1,7 @@
 package io.duryskuba.EventSourcingShop.service;
 
 import io.duryskuba.EventSourcingShop.command.account.AccountCreationCommand;
+import io.duryskuba.EventSourcingShop.resource.AccountDTO;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Service;
 
