@@ -14,4 +14,11 @@ public class AccountCreationCommand extends BaseCommand<String> {
     private String password;
     private String email;
 
+
+    public AccountCreationCommand(String id, String username, String password, String email) {
+        super(id);
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }

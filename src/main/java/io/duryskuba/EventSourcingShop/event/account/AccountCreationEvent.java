@@ -14,4 +14,11 @@ public class AccountCreationEvent extends BaseEvent<String> {
     private String password;
     private String email;
 
+
+    public AccountCreationEvent(String id, String username, String password, String email) {
+        super(id);
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }
