@@ -1,4 +1,4 @@
-package io.duryskuba.EventSourcingShop.controller;
+package io.duryskuba.EventSourcingShop.controller.account;
 
 import io.duryskuba.EventSourcingShop.model.Account;
 import io.duryskuba.EventSourcingShop.service.account.AccountQueryService;
