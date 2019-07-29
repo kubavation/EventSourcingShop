@@ -1,10 +1,8 @@
 package io.duryskuba.EventSourcingShop.controller;
 
-import io.duryskuba.EventSourcingShop.aggregate.AccountAggregate;
 import io.duryskuba.EventSourcingShop.model.Account;
-import io.duryskuba.EventSourcingShop.service.AccountQueryService;
+import io.duryskuba.EventSourcingShop.service.account.AccountQueryService;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
-import org.axonframework.modelling.command.Aggregate;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

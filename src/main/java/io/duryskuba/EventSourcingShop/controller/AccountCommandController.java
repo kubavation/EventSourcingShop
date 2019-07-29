@@ -1,8 +1,7 @@
 package io.duryskuba.EventSourcingShop.controller;
 
-import io.duryskuba.EventSourcingShop.model.Account;
 import io.duryskuba.EventSourcingShop.resource.AccountDTO;
-import io.duryskuba.EventSourcingShop.service.AccountCommandService;
+import io.duryskuba.EventSourcingShop.service.account.AccountCommandService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;

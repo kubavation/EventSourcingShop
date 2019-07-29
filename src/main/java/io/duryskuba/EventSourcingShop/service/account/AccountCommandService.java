@@ -1,4 +1,4 @@
-package io.duryskuba.EventSourcingShop.service;
+package io.duryskuba.EventSourcingShop.service.account;
 
 import io.duryskuba.EventSourcingShop.command.account.AccountCreationCommand;
 import io.duryskuba.EventSourcingShop.command.account.ChangePasswordCommand;
