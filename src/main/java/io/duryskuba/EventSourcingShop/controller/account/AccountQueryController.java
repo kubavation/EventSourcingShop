@@ -16,15 +16,12 @@ import java.util.concurrent.CompletableFuture;
 public class AccountQueryController {
 
     private final AccountQueryService accountQueryService;
+    private final QueryGateway queryGateway;
 
-    @Autowired
-    private QueryGateway queryGateway;
-
-
-    public AccountQueryController(AccountQueryService accountQueryService) {
+    public AccountQueryController(AccountQueryService accountQueryService, QueryGateway queryGateway) {
         this.accountQueryService = accountQueryService;
+        this.queryGateway = queryGateway;
     }
-
 
     @GetMapping("/accounts/{accId}/events")
     public List<Object> eventsOfAccount(@PathVariable String accId) {
