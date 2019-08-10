@@ -4,6 +4,7 @@ import io.duryskuba.EventSourcingShop.command.cart.AddProductCommand;
 import io.duryskuba.EventSourcingShop.command.cart.CreateCartCommand;
 import io.duryskuba.EventSourcingShop.enums.ShoppingCartStatus;
 import io.duryskuba.EventSourcingShop.event.cart.CartCreatedEvent;
+import io.duryskuba.EventSourcingShop.event.cart.ProductAddedEvent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -53,6 +54,11 @@ public class ShoppingCart {
         this.createdAt = LocalDateTime.now();
         this.productIds = new ArrayList<>();
         this.shoppingCartStatus = ShoppingCartStatus.ACTIVE;
+    }
+
+    @EventSourcingHandler
+    public void on(ProductAddedEvent event) {
+        this.productIds.add(event.getProductId());
     }
 
 }
