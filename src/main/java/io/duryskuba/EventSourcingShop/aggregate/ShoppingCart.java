@@ -2,6 +2,7 @@ package io.duryskuba.EventSourcingShop.aggregate;
 
 import io.duryskuba.EventSourcingShop.command.cart.AddProductCommand;
 import io.duryskuba.EventSourcingShop.command.cart.CreateCartCommand;
+import io.duryskuba.EventSourcingShop.command.cart.RemoveProductCommand;
 import io.duryskuba.EventSourcingShop.enums.ShoppingCartStatus;
 import io.duryskuba.EventSourcingShop.event.cart.CartCreatedEvent;
 import io.duryskuba.EventSourcingShop.event.cart.ProductAddedEvent;
@@ -45,6 +46,11 @@ public class ShoppingCart {
     @CommandHandler
     public void handle(AddProductCommand cmd) {
         apply( new ProductAddedEvent(cmd.getId(), cmd.getProductId()) );
+    }
+
+    @CommandHandler
+    public void handle(RemoveProductCommand cmd) {
+        apply( new ProductRemovedEvent(cmd.getId(), cmd.getProductId()) );
     }
 
     @EventSourcingHandler
