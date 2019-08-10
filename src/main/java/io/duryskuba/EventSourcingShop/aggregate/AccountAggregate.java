@@ -33,7 +33,6 @@ public class AccountAggregate {
     private LocalDateTime createdAt;
 
 
-
     @CommandHandler
     public AccountAggregate(AccountCreationCommand cmd) {
         apply(new AccountCreationEvent(

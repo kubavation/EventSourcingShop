@@ -1,5 +1,6 @@
 package io.duryskuba.EventSourcingShop.aggregate;
 
+import io.duryskuba.EventSourcingShop.command.cart.AddProductCommand;
 import io.duryskuba.EventSourcingShop.command.cart.CreateCartCommand;
 import io.duryskuba.EventSourcingShop.enums.ShoppingCartStatus;
 import io.duryskuba.EventSourcingShop.event.cart.CartCreatedEvent;
@@ -16,6 +17,8 @@ import org.axonframework.spring.stereotype.Aggregate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 @Aggregate
 @Data
@@ -35,9 +38,13 @@ public class ShoppingCart {
 
     @CommandHandler
     public ShoppingCart(CreateCartCommand cmd) {
-        AggregateLifecycle.apply( new CartCreatedEvent(cmd.getId(), cmd.getAccountId()) );
+        apply( new CartCreatedEvent(cmd.getId(), cmd.getAccountId()) );
     }
 
+    @CommandHandler
+    public void handle(AddProductCommand cmd) {
+        apply( new ProductAddedEvent(cmd.getId(), cmd.getProductId()) );
+    }
 
     @EventSourcingHandler
     public void on(CartCreatedEvent event) {
@@ -47,4 +54,5 @@ public class ShoppingCart {
         this.productIds = new ArrayList<>();
         this.shoppingCartStatus = ShoppingCartStatus.ACTIVE;
     }
+
 }
