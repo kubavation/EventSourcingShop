@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,4 +21,8 @@ public class Account {
     private String password;
     private String email;
     private LocalDateTime createdAt;
+
+    @OneToOne
+    @JoinColumn(name = "cart_id")
+    private ShoppingCart shoppingCart;
 }
