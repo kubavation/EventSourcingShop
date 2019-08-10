@@ -21,7 +21,7 @@ import java.util.List;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
-@Aggregate
+//@Aggregate
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,7 +34,7 @@ public class ShoppingCart {
     private ShoppingCartStatus shoppingCartStatus;
     private List<String> productIds;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime lastActionAt;
 
 
     @CommandHandler
@@ -61,23 +61,26 @@ public class ShoppingCart {
     public void on(CartCreatedEvent event) {
         this.id = event.getId();
         this.accountId = event.getAccountId();
-        this.createdAt = LocalDateTime.now();
+        this.lastActionAt = LocalDateTime.now();
         this.productIds = new ArrayList<>();
         this.shoppingCartStatus = ShoppingCartStatus.ACTIVE;
     }
 
     @EventSourcingHandler
     public void on(ProductAddedEvent event) {
+        this.lastActionAt = LocalDateTime.now();
         this.productIds.add(event.getProductId());
     }
 
     @EventSourcingHandler
     public void on(ProductRemovedEvent event) {
+        this.lastActionAt = LocalDateTime.now();
         this.productIds.remove(event.getProductId());
     }
 
     @EventSourcingHandler
     public void on(CartClearedEvent event) {
+        this.lastActionAt = LocalDateTime.now();
         this.productIds.clear();
     }
 }
