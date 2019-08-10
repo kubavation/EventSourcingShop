@@ -1,10 +1,8 @@
 package io.duryskuba.EventSourcingShop.aggregate;
 
-import io.duryskuba.EventSourcingShop.command.cart.AddProductCommand;
-import io.duryskuba.EventSourcingShop.command.cart.CreateCartCommand;
-import io.duryskuba.EventSourcingShop.command.cart.ProductRemovedEvent;
-import io.duryskuba.EventSourcingShop.command.cart.RemoveProductCommand;
+import io.duryskuba.EventSourcingShop.command.cart.*;
 import io.duryskuba.EventSourcingShop.enums.ShoppingCartStatus;
+import io.duryskuba.EventSourcingShop.event.cart.CartClearedEvent;
 import io.duryskuba.EventSourcingShop.event.cart.CartCreatedEvent;
 import io.duryskuba.EventSourcingShop.event.cart.ProductAddedEvent;
 import lombok.AllArgsConstructor;
@@ -54,6 +52,11 @@ public class ShoppingCart {
         apply( new ProductRemovedEvent(cmd.getId(), cmd.getProductId()) );
     }
 
+    @CommandHandler
+    public void handle(ClearCartCommand cmd) {
+        apply( new CartClearedEvent(cmd.getId()) );
+    }
+
     @EventSourcingHandler
     public void on(CartCreatedEvent event) {
         this.id = event.getId();
@@ -73,4 +76,8 @@ public class ShoppingCart {
         this.productIds.remove(event.getProductId());
     }
 
+    @EventSourcingHandler
+    public void on(CartClearedEvent event) {
+        this.productIds.clear();
+    }
 }
