@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -20,5 +18,12 @@ public class ShoppingCart {
 
     @OneToOne(mappedBy = "shoppingCart")
     private Account account;
-    
+
+    @ManyToMany
+    @JoinTable(
+        name = "CART_PRODUCT",
+        joinColumns = { @JoinColumn(name = "cart_id") },
+        inverseJoinColumns = { @JoinColumn(name = "product_id") }
+    )
+    private List<Product> products;
 }
