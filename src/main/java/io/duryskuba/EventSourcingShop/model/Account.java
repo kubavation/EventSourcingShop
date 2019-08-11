@@ -25,4 +25,12 @@ public class Account {
     @OneToOne
     @JoinColumn(name = "cart_id")
     private ShoppingCart shoppingCart;
+
+    public Account(String id, String username, String password, String email, LocalDateTime now) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.createdAt = now;
+    }
 }

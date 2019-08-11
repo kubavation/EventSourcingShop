@@ -19,11 +19,6 @@ public class ShoppingCart {
     @OneToOne(mappedBy = "shoppingCart")
     private Account account;
 
-    @ManyToMany
-    @JoinTable(
-        name = "CART_PRODUCT",
-        joinColumns = { @JoinColumn(name = "cart_id") },
-        inverseJoinColumns = { @JoinColumn(name = "product_id") }
-    )
-    private List<Product> products;
+    @OneToMany(mappedBy = "shoppingCart")
+    private List<CartProduct> cartProducts;
 }
