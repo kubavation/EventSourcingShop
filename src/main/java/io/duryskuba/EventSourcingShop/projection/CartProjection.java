@@ -17,5 +17,5 @@ public class CartProjection {
 
     //todo + tworzenie shoppingcart
 
-    
+
 }

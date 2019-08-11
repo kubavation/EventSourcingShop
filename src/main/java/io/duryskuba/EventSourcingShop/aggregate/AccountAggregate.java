@@ -1,6 +1,6 @@
 package io.duryskuba.EventSourcingShop.aggregate;
 
-import io.duryskuba.EventSourcingShop.command.account.AccountCreationCommand;
+import io.duryskuba.EventSourcingShop.command.account.CreateAccountCommand;
 import io.duryskuba.EventSourcingShop.command.account.ChangePasswordCommand;
 import io.duryskuba.EventSourcingShop.event.account.AccountCreationEvent;
 import io.duryskuba.EventSourcingShop.event.account.PasswordChangedEvent;
@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
-import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.time.LocalDateTime;
@@ -34,7 +33,7 @@ public class AccountAggregate {
 
 
     @CommandHandler
-    public AccountAggregate(AccountCreationCommand cmd) {
+    public AccountAggregate(CreateAccountCommand cmd) {
         apply(new AccountCreationEvent(
                 cmd.getId(), cmd.getUsername(), cmd.getPassword(), cmd.getEmail()) );
     }

@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,4 +44,8 @@ public class AccountQueryService {
         return accountRepository.findAll();
     }
 
+    @QueryHandler(queryName = "findAccountById")
+    public Optional<Account> findById(String id) {
+        return accountRepository.findById(id);
+    }
 }
