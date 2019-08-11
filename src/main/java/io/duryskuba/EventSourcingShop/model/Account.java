@@ -22,7 +22,7 @@ public class Account {
     private String email;
     private LocalDateTime createdAt;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private ShoppingCart shoppingCart;
 
