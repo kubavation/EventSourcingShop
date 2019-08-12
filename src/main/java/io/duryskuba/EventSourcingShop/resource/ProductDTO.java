@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.util.concurrent.atomic.AtomicLong;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -16,4 +19,8 @@ public class ProductDTO {
     private String description;
     private String code;
     private String groupCode;
+
+    private BigDecimal price;
+    private AtomicLong quantity;
+
 }
