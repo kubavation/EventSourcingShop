@@ -1,5 +1,6 @@
 package io.duryskuba.EventSourcingShop.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,4 +27,9 @@ public class CartProduct {
     private Product product;
 
     private AtomicLong quantity;
+
+    public CartProduct(CartProductId cartProductId, AtomicLong quantity) {
+        this.cartProductId = cartProductId;
+        this.quantity = quantity;
+    }
 }
