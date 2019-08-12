@@ -32,26 +32,17 @@ public class CartProjection {
     @EventHandler
     public void on(CartCreatedEvent event) throws Exception {
 
-        System.out.println("ONNNN");
-        System.out.println(event.getAccountId());
-
+        System.out.println("ON CART CREATED EVENT - PROJECTION");
 
         Account account = queryGateway.query("findAll",null,ResponseTypes.multipleInstancesOf(Account.class))
                 .thenApply(list -> list.stream()
-                        .filter(a -> {
-                            System.out.println(a);
-                            return a.getId().equals(event.getAccountId());
-                        }
-                        ).findFirst())
+                        .filter(a -> a.getId().equals(event.getAccountId()))
+                        .findFirst())
                 .get()
                 .orElseThrow(RuntimeException::new);
 
-        if ( account.getShoppingCart() != null)
-            return;
-
-        System.out.println(account);
-        System.out.println("saving");
-        cartRepository.save( new ShoppingCart(event.getId(), account));
+        if (account.getShoppingCart() == null)
+            cartRepository.save( new ShoppingCart(event.getId(), account) );
     }
 
     @EventHandler

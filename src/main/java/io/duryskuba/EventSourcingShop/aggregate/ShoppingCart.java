@@ -59,7 +59,6 @@ public class ShoppingCart {
 
     @EventSourcingHandler
     public void on(CartCreatedEvent event) {
-        System.out.println("on cart created event");
         this.id = event.getId();
         this.accountId = event.getAccountId();
         this.lastActionAt = LocalDateTime.now();
