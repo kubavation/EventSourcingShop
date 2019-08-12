@@ -34,8 +34,7 @@ public class AccountProjection {
                 new Account(event.getId(), event.getUsername(), event.getPassword(), event.getEmail(), LocalDateTime.now())
         );
 
-        System.out.println("SENDING CREATE_CART_COMMAND");
-        commandGateway.send( new CreateCartCommand(UUID.randomUUID().toString(), event.getId()) ); //refactor
+        //commandGateway.send( new CreateCartCommand(UUID.randomUUID().toString(), event.getId()));
     }
 
     @EventHandler
