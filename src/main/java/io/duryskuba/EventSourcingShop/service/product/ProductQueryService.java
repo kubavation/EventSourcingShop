@@ -5,6 +5,8 @@ import io.duryskuba.EventSourcingShop.repository.ProductRepository;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Component;
 
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import java.util.Collection;
 import java.util.Optional;
 
 @Component
@@ -24,5 +26,10 @@ public class ProductQueryService {
     @QueryHandler(queryName = "findProductById")
     public Optional<Product> findProductById(String id) {
         return productRepository.findById(id);
+    }
+
+
+    public Collection<Product> findAll() {
+        return productRepository.findAll();
     }
 }
