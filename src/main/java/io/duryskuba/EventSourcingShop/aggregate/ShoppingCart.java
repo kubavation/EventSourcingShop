@@ -28,9 +28,9 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 public class ShoppingCart {
 
     @AggregateIdentifier
-    private String accountId;
+    private String id;
 
-    //private String accountId;
+    private String accountId;
     private ShoppingCartStatus shoppingCartStatus;
     private List<String> productIds;
 
@@ -59,8 +59,9 @@ public class ShoppingCart {
 
     @EventSourcingHandler
     public void on(CartCreatedEvent event) {
-        this.accountId = event.getId();
-        //this.accountId = event.getAccountId();
+        System.out.println("on cart created event");
+        this.id = event.getId();
+        this.accountId = event.getAccountId();
         this.lastActionAt = LocalDateTime.now();
         this.productIds = new ArrayList<>();
         this.shoppingCartStatus = ShoppingCartStatus.ACTIVE;

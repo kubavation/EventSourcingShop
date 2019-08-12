@@ -1,6 +1,8 @@
 package io.duryskuba.EventSourcingShop.controller.account;
 
 import io.duryskuba.EventSourcingShop.model.Account;
+import io.duryskuba.EventSourcingShop.model.ShoppingCart;
+import io.duryskuba.EventSourcingShop.repository.CartRepository;
 import io.duryskuba.EventSourcingShop.service.account.AccountQueryService;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
@@ -18,6 +20,9 @@ public class AccountQueryController {
     private final AccountQueryService accountQueryService;
     private final QueryGateway queryGateway;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     public AccountQueryController(AccountQueryService accountQueryService, QueryGateway queryGateway) {
         this.accountQueryService = accountQueryService;
         this.queryGateway = queryGateway;
@@ -31,5 +36,10 @@ public class AccountQueryController {
     @GetMapping("/accounts")
     public CompletableFuture<List<Account>> findAll() {
        return queryGateway.query("findAll", null, ResponseTypes.multipleInstancesOf(Account.class) );
+    }
+
+    @GetMapping("/carts")
+    public List<ShoppingCart> findAlls() {
+        return cartRepository.findAll();
     }
 }

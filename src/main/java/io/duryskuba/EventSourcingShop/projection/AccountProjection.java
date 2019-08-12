@@ -1,5 +1,6 @@
 package io.duryskuba.EventSourcingShop.projection;
 
+import io.duryskuba.EventSourcingShop.command.cart.CreateCartCommand;
 import io.duryskuba.EventSourcingShop.event.account.AccountCreationEvent;
 import io.duryskuba.EventSourcingShop.event.account.PasswordChangedEvent;
 import io.duryskuba.EventSourcingShop.model.Account;
@@ -13,19 +14,18 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class AccountProjection {
 
     private final AccountRepository accountRepository;
+    private final CommandGateway commandGateway;
 
-    @Autowired
-    private CommandGateway commandGateway;
-
-    public AccountProjection(AccountRepository accountRepository) {
+    public AccountProjection(AccountRepository accountRepository, CommandGateway commandGateway) {
         this.accountRepository = accountRepository;
+        this.commandGateway = commandGateway;
     }
-
 
     @EventHandler
     public void on(AccountCreationEvent event) {
@@ -33,7 +33,9 @@ public class AccountProjection {
         accountRepository.save(
                 new Account(event.getId(), event.getUsername(), event.getPassword(), event.getEmail(), LocalDateTime.now())
         );
-        //command gateway ( create cart command )
+
+        System.out.println("SENDING CREATE_CART_COMMAND");
+        commandGateway.send( new CreateCartCommand(UUID.randomUUID().toString(), event.getId()) ); //refactor
     }
 
     @EventHandler

@@ -1,8 +1,7 @@
 package io.duryskuba.EventSourcingShop.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,15 +9,22 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class ShoppingCart {
 
     @Id
     private String id;
 
-    @OneToOne(mappedBy = "shoppingCart")
+    @OneToOne
+    @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(mappedBy = "shoppingCart")
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CartProduct> cartProducts;
+
+    public ShoppingCart(String id, Account account) {
+        this.id = id;
+        this.account = account;
+    }
 }

@@ -1,10 +1,8 @@
 package io.duryskuba.EventSourcingShop.projection;
 
+import io.duryskuba.EventSourcingShop.event.cart.CartCreatedEvent;
 import io.duryskuba.EventSourcingShop.event.cart.ProductAddedEvent;
-import io.duryskuba.EventSourcingShop.model.CartProduct;
-import io.duryskuba.EventSourcingShop.model.CartProductId;
-import io.duryskuba.EventSourcingShop.model.Product;
-import io.duryskuba.EventSourcingShop.model.ShoppingCart;
+import io.duryskuba.EventSourcingShop.model.*;
 import io.duryskuba.EventSourcingShop.repository.CartProductRepository;
 import io.duryskuba.EventSourcingShop.repository.CartRepository;
 import org.axonframework.eventhandling.EventHandler;
@@ -30,6 +28,31 @@ public class CartProjection {
     }
 
     //todo + tworzenie shoppingcart
+
+    @EventHandler
+    public void on(CartCreatedEvent event) throws Exception {
+
+        System.out.println("ONNNN");
+        System.out.println(event.getAccountId());
+
+
+        Account account = queryGateway.query("findAll",null,ResponseTypes.multipleInstancesOf(Account.class))
+                .thenApply(list -> list.stream()
+                        .filter(a -> {
+                            System.out.println(a);
+                            return a.getId().equals(event.getAccountId());
+                        }
+                        ).findFirst())
+                .get()
+                .orElseThrow(RuntimeException::new);
+
+        if ( account.getShoppingCart() != null)
+            return;
+
+        System.out.println(account);
+        System.out.println("saving");
+        cartRepository.save( new ShoppingCart(event.getId(), account));
+    }
 
     @EventHandler
     public void on(ProductAddedEvent event) throws Exception {
