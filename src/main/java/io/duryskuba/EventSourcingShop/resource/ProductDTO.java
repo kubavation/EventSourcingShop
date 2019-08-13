@@ -21,6 +21,6 @@ public class ProductDTO {
     private String groupCode;
 
     private BigDecimal price;
-    private AtomicLong quantity;
+    private Long quantity;
 
 }

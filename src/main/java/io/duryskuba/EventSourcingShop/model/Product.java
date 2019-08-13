@@ -1,9 +1,11 @@
 package io.duryskuba.EventSourcingShop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,6 +21,11 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Product {
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
     private String id;
 
     private String name;
@@ -26,11 +33,12 @@ public class Product {
     private String code;
     private String groupCode;
 
-    private AtomicLong quantity;
+    private Long quantity;
     private BigDecimal price;
 
     private LocalDateTime addedAt;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<CartProduct> cartProducts;
 }
