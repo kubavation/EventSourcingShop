@@ -18,7 +18,7 @@ public class CartCommandController {
         this.cartCommandService = cartCommandService;
     }
 
-    @PostMapping("/carts")
+    @PostMapping("/carts/products")
     public CompletableFuture<String> addProduct(@RequestBody CartProductDTO dto) {
         return cartCommandService.addProduct(dto);
     }

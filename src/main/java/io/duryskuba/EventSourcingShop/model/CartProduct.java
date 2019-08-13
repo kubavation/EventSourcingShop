@@ -26,9 +26,9 @@ public class CartProduct {
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
-    private AtomicLong quantity;
+    private Long quantity;
 
-    public CartProduct(CartProductId cartProductId, AtomicLong quantity) {
+    public CartProduct(CartProductId cartProductId, Long quantity) {
         this.cartProductId = cartProductId;
         this.quantity = quantity;
     }

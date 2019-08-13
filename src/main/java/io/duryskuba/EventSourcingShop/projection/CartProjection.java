@@ -48,18 +48,31 @@ public class CartProjection {
     @EventHandler
     public void on(ProductAddedEvent event) throws Exception {
 
-//        Product product = queryGateway.query("findAllProducts", null, ResponseTypes.multipleInstancesOf(Product.class))
-//                .thenApply(list -> list.stream()
-//                     .filter(p -> p.getId().equals(event.getProductId())).findFirst())
-//                .get()
-//                .orElseThrow(RuntimeException::new);
-//
-//        ShoppingCart cart = cartRepository.findById(event.getId())
-//                .orElseThrow(RuntimeException::new);
+        Product product = queryGateway.query("findAllProducts", null, ResponseTypes.multipleInstancesOf(Product.class))
+                .thenApply(list -> list.stream()
+                     .filter(p -> p.getId().equals(event.getProductId())).findFirst())
+                .get()
+                    .orElseThrow(RuntimeException::new);
+
+        System.out.println("------------");
+        System.out.println(product);
+
+        ShoppingCart cart = cartRepository.findById(event.getId())
+                .orElseThrow(RuntimeException::new);
+
+        System.out.println("-----------");
+        System.out.println(cart);
 
         System.out.println("product added");
-        cartProductRepository.save(
-                new CartProduct(new CartProductId(event.getId(), event.getProductId()), new AtomicLong(1)) );
+        CartProduct cartProduct = new CartProduct();
+        cartProduct.setProduct(product);
+        cartProduct.setShoppingCart(cart);
+        cartProduct.setQuantity(1L); //tests
+
+        cartProductRepository.save(cartProduct);
+        System.out.println("saved");
+//        cartProductRepository.save(
+//                    new CartProduct(new CartProductId(event.getId(), event.getProductId()), new AtomicLong(1)) );
     }
 
 }
