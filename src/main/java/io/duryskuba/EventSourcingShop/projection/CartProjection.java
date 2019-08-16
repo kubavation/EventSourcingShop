@@ -2,6 +2,7 @@ package io.duryskuba.EventSourcingShop.projection;
 
 import io.duryskuba.EventSourcingShop.event.cart.CartCreatedEvent;
 import io.duryskuba.EventSourcingShop.event.cart.ProductAddedEvent;
+import io.duryskuba.EventSourcingShop.exception.ResourceNotFoundException;
 import io.duryskuba.EventSourcingShop.model.*;
 import io.duryskuba.EventSourcingShop.repository.CartProductRepository;
 import io.duryskuba.EventSourcingShop.repository.CartRepository;
@@ -52,13 +53,13 @@ public class CartProjection {
                 .thenApply(list -> list.stream()
                      .filter(p -> p.getId().equals(event.getProductId())).findFirst())
                 .get()
-                    .orElseThrow(RuntimeException::new);
+                    .orElseThrow(() -> new ResourceNotFoundException(Product.class));
 
         System.out.println("------------");
         System.out.println(product);
 
         ShoppingCart cart = cartRepository.findById(event.getId())
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new ResourceNotFoundException(ShoppingCart.class));
 
         System.out.println("-----------");
         System.out.println(cart);
