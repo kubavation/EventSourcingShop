@@ -55,16 +55,9 @@ public class CartProjection {
                 .get()
                     .orElseThrow(() -> new ResourceNotFoundException(Product.class));
 
-        System.out.println("------------");
-        System.out.println(product);
-
         ShoppingCart cart = cartRepository.findById(event.getId())
                 .orElseThrow(() -> new ResourceNotFoundException(ShoppingCart.class));
 
-        System.out.println("-----------");
-        System.out.println(cart);
-
-        System.out.println("product added");
         CartProduct cartProduct = new CartProduct();
         cartProduct.setProduct(product);
         cartProduct.setShoppingCart(cart);
@@ -72,8 +65,7 @@ public class CartProjection {
 
         cartProductRepository.save(cartProduct);
         System.out.println("saved");
-//        cartProductRepository.save(
-//                    new CartProduct(new CartProductId(event.getId(), event.getProductId()), new AtomicLong(1)) );
+
     }
 
 }
