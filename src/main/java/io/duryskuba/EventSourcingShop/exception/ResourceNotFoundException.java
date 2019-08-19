@@ -6,4 +6,8 @@ public class ResourceNotFoundException extends RuntimeException {
         super("RESOURCE NOT FOUND OF CLASS " + clazz.toString());
     }
 
+    public ResourceNotFoundException(Class<?> clazz, Object id) {
+        super("RESOURCE NOT FOUND OF ID: " + id.toString() + " OF CLASS " + clazz.toString());
+    }
+
 }

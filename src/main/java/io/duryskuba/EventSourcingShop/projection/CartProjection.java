@@ -49,22 +49,24 @@ public class CartProjection {
     @EventHandler
     public void on(ProductAddedEvent event) throws Exception {
 
-        Product product = queryGateway.query("findAllProducts", null, ResponseTypes.multipleInstancesOf(Product.class))
-                .thenApply(list -> list.stream()
-                     .filter(p -> p.getId().equals(event.getProductId())).findFirst())
-                .get()
-                    .orElseThrow(() -> new ResourceNotFoundException(Product.class));
+//        Product product = queryGateway.query("findAllProducts", null, ResponseTypes.multipleInstancesOf(Product.class))
+//                .thenApply(list -> list.stream()
+//                     .filter(p -> p.getId().equals(event.getProductId())).findFirst())
+//                .get()
+//                    .orElseThrow(() -> new ResourceNotFoundException(Product.class));
+//
+//        ShoppingCart cart = cartRepository.findById(event.getId())
+//                .orElseThrow(() -> new ResourceNotFoundException(ShoppingCart.class));
+//
+//        CartProduct cartProduct = new CartProduct();
+//        cartProduct.setProduct(product);
+//        cartProduct.setShoppingCart(cart);
+//        cartProduct.setQuantity(1L); //tests
+//
+//        cartProductRepository.save(cartProduct);
+//        System.out.println("saved");
 
-        ShoppingCart cart = cartRepository.findById(event.getId())
-                .orElseThrow(() -> new ResourceNotFoundException(ShoppingCart.class));
 
-        CartProduct cartProduct = new CartProduct();
-        cartProduct.setProduct(product);
-        cartProduct.setShoppingCart(cart);
-        cartProduct.setQuantity(1L); //tests
-
-        cartProductRepository.save(cartProduct);
-        System.out.println("saved");
 
     }
 
