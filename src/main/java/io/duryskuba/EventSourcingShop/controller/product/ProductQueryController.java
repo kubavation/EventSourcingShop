@@ -14,13 +14,20 @@ import java.util.concurrent.CompletableFuture;
 public class ProductQueryController {
 
     private final QueryGateway queryGateway;
+    private final ProductQueryService productQueryService;
 
-    public ProductQueryController(QueryGateway queryGateway) {
+    public ProductQueryController(QueryGateway queryGateway, ProductQueryService productQueryService) {
         this.queryGateway = queryGateway;
+        this.productQueryService = productQueryService;
     }
 
     @GetMapping("/products")
     public CompletableFuture<List<Product>> findAll() {
         return queryGateway.query("findAllProducts",null, ResponseTypes.multipleInstancesOf(Product.class) );
+    }
+
+    @GetMapping("/products/{id}")
+    public Product findProductById(String id) {
+        return productQueryService.findProductByIdOrThrow(id);
     }
 }
