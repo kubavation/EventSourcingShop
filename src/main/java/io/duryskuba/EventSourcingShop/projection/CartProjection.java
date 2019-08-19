@@ -57,7 +57,10 @@ public class CartProjection {
     @EventHandler
     public void on(ProductAddedEvent event) throws Exception {
 
-        Product product = pro
+        Product product = productQueryService.findProductByIdOrThrow(event.getProductId());
+
+
+
     }
 
 //        Product product = queryGateway.query("findAllProducts", null, ResponseTypes.multipleInstancesOf(Product.class))
