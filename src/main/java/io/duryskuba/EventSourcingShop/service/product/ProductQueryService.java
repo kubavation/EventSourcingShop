@@ -19,17 +19,11 @@ public class ProductQueryService {
     }
 
     @QueryHandler(queryName = "findAllProducts")
-    public Iterable<Product> findAllProducts() {
+    public Collection<Product> findAllProducts() {
         return productRepository.findAll();
     }
 
-    @QueryHandler(queryName = "findProductById")
     public Optional<Product> findProductById(String id) {
         return productRepository.findById(id);
-    }
-
-
-    public Collection<Product> findAll() {
-        return productRepository.findAll();
     }
 }
