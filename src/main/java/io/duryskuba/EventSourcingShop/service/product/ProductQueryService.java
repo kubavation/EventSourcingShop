@@ -1,5 +1,6 @@
 package io.duryskuba.EventSourcingShop.service.product;
 
+import io.duryskuba.EventSourcingShop.exception.ResourceNotFoundException;
 import io.duryskuba.EventSourcingShop.model.Product;
 import io.duryskuba.EventSourcingShop.repository.ProductRepository;
 import org.axonframework.queryhandling.QueryHandler;
@@ -25,5 +26,10 @@ public class ProductQueryService {
 
     public Optional<Product> findProductById(String id) {
         return productRepository.findById(id);
+    }
+
+    public Product findProductByIdOrThrow(String id) {
+        return productRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException(Product.class, id));
     }
 }

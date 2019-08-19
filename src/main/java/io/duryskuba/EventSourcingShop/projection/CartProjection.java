@@ -6,6 +6,8 @@ import io.duryskuba.EventSourcingShop.exception.ResourceNotFoundException;
 import io.duryskuba.EventSourcingShop.model.*;
 import io.duryskuba.EventSourcingShop.repository.CartProductRepository;
 import io.duryskuba.EventSourcingShop.repository.CartRepository;
+import io.duryskuba.EventSourcingShop.service.account.AccountQueryService;
+import io.duryskuba.EventSourcingShop.service.product.ProductQueryService;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
@@ -21,11 +23,17 @@ public class CartProjection {
     private final CartRepository cartRepository;
     private final CartProductRepository cartProductRepository;
     private final QueryGateway queryGateway;
+    private final ProductQueryService productQueryService;
+    private final AccountQueryService accountQueryService;
 
-    public CartProjection(CartRepository cartRepository, CartProductRepository cartProductRepository, QueryGateway queryGateway) {
+    public CartProjection(CartRepository cartRepository, CartProductRepository cartProductRepository,
+                          QueryGateway queryGateway, ProductQueryService productQueryService,
+                          AccountQueryService accountQueryService) {
         this.cartRepository = cartRepository;
         this.cartProductRepository = cartProductRepository;
         this.queryGateway = queryGateway;
+        this.productQueryService = productQueryService;
+        this.accountQueryService = accountQueryService;
     }
 
     //todo + tworzenie shoppingcart
@@ -49,6 +57,9 @@ public class CartProjection {
     @EventHandler
     public void on(ProductAddedEvent event) throws Exception {
 
+        Product product = pro
+    }
+
 //        Product product = queryGateway.query("findAllProducts", null, ResponseTypes.multipleInstancesOf(Product.class))
 //                .thenApply(list -> list.stream()
 //                     .filter(p -> p.getId().equals(event.getProductId())).findFirst())
@@ -67,7 +78,5 @@ public class CartProjection {
 //        System.out.println("saved");
 
 
-
-    }
 
 }
