@@ -63,7 +63,7 @@ public class CartProjection {
         Product product = productQueryService.findProductByIdOrThrow(event.getProductId());
         ShoppingCart cart = cartQueryService.findCartByIdOrThrow(event.getId());
 
-        cartProductRepository.save()
+        cartProductRepository.save( new CartProduct(product, cart, 1L) );
     }
 
 //        Product product = queryGateway.query("findAllProducts", null, ResponseTypes.multipleInstancesOf(Product.class))
