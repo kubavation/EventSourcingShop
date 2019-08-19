@@ -3,7 +3,6 @@ package io.duryskuba.EventSourcingShop.controller.cart;
 import io.duryskuba.EventSourcingShop.model.Product;
 import io.duryskuba.EventSourcingShop.model.ShoppingCart;
 import io.duryskuba.EventSourcingShop.service.cart.CartQueryService;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.GetMapping;
