@@ -18,14 +18,14 @@ public class ProductCommandController {
         this.productCommandService = productCommandService;
     }
 
-//    @PostMapping("/products")
-//    public CompletableFuture<String> createProduct(@RequestBody ProductDTO productDTO) {
-//        return productCommandService.createProduct(productDTO);
-//    }
-
     @PostMapping("/products")
-    public ResponseEntity<Void> createProduct(@RequestBody ProductDTO productDTO) {
-        productCommandService.createProduct(productDTO);
-        return ResponseEntity.ok().build();
+    public CompletableFuture<String> createProduct(@RequestBody ProductDTO productDTO) {
+        return productCommandService.createProductv2(productDTO);
     }
+
+//    @PostMapping("/products")
+//    public ResponseEntity<Void> createProduct(@RequestBody ProductDTO productDTO) {
+//        productCommandService.createProduct(productDTO);
+//        return ResponseEntity.ok().build();
+//    }
 }

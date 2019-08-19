@@ -37,5 +37,5 @@ public class AccountQueryController {
     public CompletableFuture<List<Account>> findAll() {
        return queryGateway.query("findAll", null, ResponseTypes.multipleInstancesOf(Account.class) );
     }
-    
+
 }

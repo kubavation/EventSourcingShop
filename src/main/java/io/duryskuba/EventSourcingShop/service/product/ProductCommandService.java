@@ -23,15 +23,15 @@ public class ProductCommandService {
         this.productRepository = productRepository;
     }
 
-//    public CompletableFuture<String> createProduct(ProductDTO productDTO) {
-//        return commandGateway.send (
-//                CreateProductCommand.builder()
-//                    .id(UUID.randomUUID().toString())
-//                    .name(productDTO.getName())
-//                    .code(productDTO.getCode())
-//                    .description(productDTO.getDescription())
-//                    .groupCode(productDTO.getGroupCode()).build() );
-//    }
+    public CompletableFuture<String> createProductv2(ProductDTO productDTO) {
+        return commandGateway.send (
+                CreateProductCommand.builder()
+                    .id(UUID.randomUUID().toString())
+                    .name(productDTO.getName())
+                    .code(productDTO.getCode())
+                    .description(productDTO.getDescription())
+                    .groupCode(productDTO.getGroupCode()).build() );
+    }
 
     public void createProduct(ProductDTO productDTO) {
         productRepository.save( toEntity(productDTO) );
