@@ -60,6 +60,8 @@ public class CartProjection {
     @EventHandler
     public void on(ProductAddedEvent event) throws Exception {
 
+        System.out.println(event.getProductId());
+        System.out.println(event.getId());
         Product product = productQueryService.findProductByIdOrThrow(event.getProductId());
         ShoppingCart cart = cartQueryService.findCartByIdOrThrow(event.getId());
 
