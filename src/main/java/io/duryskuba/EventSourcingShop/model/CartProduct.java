@@ -32,4 +32,10 @@ public class CartProduct {
         this.cartProductId = cartProductId;
         this.quantity = quantity;
     }
+
+    public CartProduct(Product product, ShoppingCart cart, Long quantity) {
+        this.product = product;
+        this.shoppingCart = cart;
+        this.quantity = quantity;
+    }
 }

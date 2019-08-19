@@ -7,6 +7,7 @@ import io.duryskuba.EventSourcingShop.model.*;
 import io.duryskuba.EventSourcingShop.repository.CartProductRepository;
 import io.duryskuba.EventSourcingShop.repository.CartRepository;
 import io.duryskuba.EventSourcingShop.service.account.AccountQueryService;
+import io.duryskuba.EventSourcingShop.service.cart.CartQueryService;
 import io.duryskuba.EventSourcingShop.service.product.ProductQueryService;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
@@ -25,15 +26,17 @@ public class CartProjection {
     private final QueryGateway queryGateway;
     private final ProductQueryService productQueryService;
     private final AccountQueryService accountQueryService;
+    private final CartQueryService cartQueryService;
 
     public CartProjection(CartRepository cartRepository, CartProductRepository cartProductRepository,
                           QueryGateway queryGateway, ProductQueryService productQueryService,
-                          AccountQueryService accountQueryService) {
+                          AccountQueryService accountQueryService, CartQueryService cartQueryService) {
         this.cartRepository = cartRepository;
         this.cartProductRepository = cartProductRepository;
         this.queryGateway = queryGateway;
         this.productQueryService = productQueryService;
         this.accountQueryService = accountQueryService;
+        this.cartQueryService = cartQueryService;
     }
 
     //todo + tworzenie shoppingcart
@@ -58,9 +61,9 @@ public class CartProjection {
     public void on(ProductAddedEvent event) throws Exception {
 
         Product product = productQueryService.findProductByIdOrThrow(event.getProductId());
+        ShoppingCart cart = cartQueryService.findCartByIdOrThrow(event.getId());
 
-
-
+        cartProductRepository.save()
     }
 
 //        Product product = queryGateway.query("findAllProducts", null, ResponseTypes.multipleInstancesOf(Product.class))
