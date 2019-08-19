@@ -5,6 +5,7 @@ import io.duryskuba.EventSourcingShop.service.product.ProductQueryService;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class ProductQueryController {
     }
 
     @GetMapping("/products/{id}")
-    public Product findProductById(String id) {
+    public Product findProductById(@PathVariable String id) {
         return productQueryService.findProductByIdOrThrow(id);
     }
 }
