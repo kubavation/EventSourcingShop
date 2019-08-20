@@ -11,4 +11,5 @@ public class CartProductDTO {
 
     private String cartId;
     private String productId;
+    private Long quantity;
 }

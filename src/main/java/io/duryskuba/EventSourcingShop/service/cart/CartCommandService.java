@@ -22,6 +22,6 @@ public class CartCommandService {
 
     public CompletableFuture<String> addProduct(CartProductDTO dto) {
         return commandGateway.send(
-                new AddProductCommand(dto.getCartId(), dto.getProductId()));
+                new AddProductCommand(dto.getCartId(), dto.getProductId(), dto.getQuantity()));
     }
 }

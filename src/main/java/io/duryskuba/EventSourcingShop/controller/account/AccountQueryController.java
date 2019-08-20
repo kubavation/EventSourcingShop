@@ -20,9 +20,6 @@ public class AccountQueryController {
     private final AccountQueryService accountQueryService;
     private final QueryGateway queryGateway;
 
-    @Autowired
-    private CartRepository cartRepository;
-
     public AccountQueryController(AccountQueryService accountQueryService, QueryGateway queryGateway) {
         this.accountQueryService = accountQueryService;
         this.queryGateway = queryGateway;

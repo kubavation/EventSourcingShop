@@ -17,7 +17,9 @@ import org.axonframework.spring.stereotype.Aggregate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
@@ -32,7 +34,7 @@ public class ShoppingCart {
 
     private String accountId;
     private ShoppingCartStatus shoppingCartStatus;
-    private List<String> productIds;
+    private Map<String, Long> products;
 
     private LocalDateTime lastActionAt;
 
@@ -44,7 +46,7 @@ public class ShoppingCart {
 
     @CommandHandler
     public void handle(AddProductCommand cmd) {
-        apply( new ProductAddedEvent(cmd.getId(), cmd.getProductId()) );
+        apply( new ProductAddedEvent(cmd.getId(), cmd.getProductId(), cmd.getQuantity()) );
     }
 
     @CommandHandler
@@ -62,26 +64,29 @@ public class ShoppingCart {
         this.id = event.getId();
         this.accountId = event.getAccountId();
         this.lastActionAt = LocalDateTime.now();
-        this.productIds = new ArrayList<>();
+        this.products = new HashMap<>();
         this.shoppingCartStatus = ShoppingCartStatus.ACTIVE;
     }
 
     @EventSourcingHandler
     public void on(ProductAddedEvent event) {
         this.lastActionAt = LocalDateTime.now();
-        this.productIds.add(event.getProductId());
+        if( products.containsKey(event.getProductId()) )
+            products.replace(event.getProductId(), products.get(event.getProductId() + event.getQuantity()));
+        else
+            products.put(event.getProductId(), event.getQuantity());
     }
 
     @EventSourcingHandler
     public void on(ProductRemovedEvent event) {
         this.lastActionAt = LocalDateTime.now();
-        this.productIds.remove(event.getProductId());
+        this.products.computeIfPresent(event.getProductId(), (k,v) -> this.products.remove(k));
     }
 
     @EventSourcingHandler
     public void on(CartClearedEvent event) {
         this.lastActionAt = LocalDateTime.now();
-        this.productIds.clear();
+        this.products.clear();
     }
 
 
@@ -89,6 +94,7 @@ public class ShoppingCart {
     @AllArgsConstructor
     @Data
     private class Product {
+
         private String id;
         private Long quantity;
     }
