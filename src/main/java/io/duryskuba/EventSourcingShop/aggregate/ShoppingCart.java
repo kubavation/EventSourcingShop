@@ -75,12 +75,16 @@ public class ShoppingCart {
             products.replace(event.getProductId(), products.get(event.getProductId() + event.getQuantity()));
         else
             products.put(event.getProductId(), event.getQuantity());
+
+        System.out.println("ON PRODUCT ADDED EVENT");
     }
 
     @EventSourcingHandler
     public void on(ProductRemovedEvent event) {
         this.lastActionAt = LocalDateTime.now();
         this.products.computeIfPresent(event.getProductId(), (k,v) -> this.products.remove(k));
+
+        System.out.println("ON PRODUCT REMOVED EVENT");
     }
 
     @EventSourcingHandler

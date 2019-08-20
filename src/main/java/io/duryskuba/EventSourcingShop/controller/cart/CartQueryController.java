@@ -1,11 +1,11 @@
 package io.duryskuba.EventSourcingShop.controller.cart;
 
-import io.duryskuba.EventSourcingShop.model.Product;
 import io.duryskuba.EventSourcingShop.model.ShoppingCart;
 import io.duryskuba.EventSourcingShop.service.cart.CartQueryService;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -32,5 +32,10 @@ public class CartQueryController {
         return cartQueryService.findCartByIdOrThrow(cartId);
     }
 
+
+    @GetMapping("/carts/{id}/events")
+    public List<Object> eventsOfCart(@PathVariable String id) {
+        return cartQueryService.eventsOfCart(id);
+    }
 
 }
