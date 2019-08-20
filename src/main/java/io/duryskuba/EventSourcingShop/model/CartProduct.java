@@ -1,6 +1,8 @@
 package io.duryskuba.EventSourcingShop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,8 @@ import java.util.concurrent.atomic.AtomicLong;
 @Table(name = "CART_PRODUCT")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CartProduct {
 
     @EmbeddedId
@@ -19,11 +23,13 @@ public class CartProduct {
     @ManyToOne
     @MapsId("cartId")
     @JoinColumn(name = "CART_ID")
+    @JsonIgnore
     private ShoppingCart shoppingCart;
 
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name = "PRODUCT_ID")
+    @JsonIgnore
     private Product product;
 
     private Long quantity;
