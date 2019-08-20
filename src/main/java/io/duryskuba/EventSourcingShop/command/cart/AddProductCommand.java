@@ -11,9 +11,11 @@ import lombok.NoArgsConstructor;
 public class AddProductCommand extends BaseCommand<String> {
 
     private String productId;
+    private Long quantity;
 
-    public AddProductCommand(String id, String productId) {
+    public AddProductCommand(String id, String productId, Long quantity) {
         super(id);
         this.productId = productId;
+        this.quantity = quantity;
     }
 }
