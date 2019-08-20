@@ -88,14 +88,4 @@ public class ShoppingCart {
         this.lastActionAt = LocalDateTime.now();
         this.products.clear();
     }
-
-
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Data
-    private class Product {
-
-        private String id;
-        private Long quantity;
-    }
 }
